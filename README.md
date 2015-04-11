@@ -1,6 +1,6 @@
 # Instructions
 
-Please run the application by clicking on index.html in the root directory. The application is a web-based RSS feeds reader with jasmine testing section on the bottom of the page. 
+Please run the application by clicking on index.html in the root directory. The application is a web-based RSS feeds reader with jasmine testing section on the bottom of the page. Please note that in order to test all specs (especially the last spec). There is a default timeout changed to 15 seconds to give the tester suffient time to click on .menu-icon-link element (in the upper left corner) that toggles the left menu. The tester is subsequently required to click on any of the li in the .feed-list and thus triggering loadFeed function. If the tester selects menu item other than the default one (Udacity Blog) than the .feed content should be modified. In case the tester selects default menu element, then the newly-loaded .feed content remains the same as before. 
 
 ## Tests
 
