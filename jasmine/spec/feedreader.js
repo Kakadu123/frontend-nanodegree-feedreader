@@ -105,53 +105,44 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
-//     console.log("before " + $('.entry').length);
-
         beforeEach(function(done) {
             loadFeed(0,done);
         });
 
-        it('At least a single .entry displayed when the loadFeed function is called', function() {
-//            console.log("after " + $('.entry').length);
+        it('At least a single .entry displayed when the loadFeed function is called', function(done) {
             expect($('.entry').length).toBeGreaterThan(0);
+            done();
         });
 
     });
 
+
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000; 
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {   
 
-/*
-        beforeEach(function(done) {
-            loadFeed(0,(
+        beforeEach(function (done) { 
+             $('.feed-list').on('click', 'a', function() { 
+                clickedElement = $(this);
+                oldOuterHTML = $('.feed')[0].outerHTML; 
+                loadFeed(clickedElement.data('id'), done); 
+             }); 
+        }); 
 
-                   function() {
-                    console.log($(".entry h2").text());
-                   } 
+        it('Content changes when new (other than default) feed is loaded or remains the same when the default feed is clicked', function(done) {  
+            newOuterHTML = $('.feed')[0].outerHTML;
+            expect($('.entry-link').length).toBeGreaterThan(0); 
 
-                ));*/
-            
+            if (clickedElement.data('id') > 0) {         
+                expect(newOuterHTML).not.toEqual(oldOuterHTML); 
+            }   else {
+                expect(clickedElement.data('id')).toBe(0);     
+                expect(newOuterHTML).toEqual(oldOuterHTML);     
+            }
 
-           /*loadFeed(1,done);
-            console.log($(".entry h2").text());
-*/
-     /*   });*/
+            done();    
 
-  //      console.log($(".entry h2").text());    
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-
-
-/*        it('Content changes when a new feed is loaded', function() {
-        
-            
-
-        });*/
-      
-    });
-    
+        });     
+    });                    
 
 }());
