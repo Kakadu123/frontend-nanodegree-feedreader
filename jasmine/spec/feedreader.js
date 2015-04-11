@@ -57,11 +57,15 @@ $(function() {
     /* TODO: Write a new test suite named "The menu" */
 
     describe('The menu', function() {
-         
-        it('items are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
-        });
+
+        // added matcher for hasClass    
+/*        beforeEach(function() {
+            this.addMatchers({
+                toHaveClass: function(className) {
+                    return this.actual.hasClass(className);
+                }
+            });
+        });*/
 
 
         /* TODO: Write a test that ensures the menu element is
@@ -70,11 +74,24 @@ $(function() {
          * hiding/showing of the menu element.
          */
 
+        it('menu element is hidden by default', function() {
+    //      expect($('body').hasClass("menu-hidden")).toBeTruthy();
+    //      expect($('body')).toHaveClass("menu-hidden");
+            expect($('body').hasClass("menu-hidden")).toBe(true);
+        });
+
+
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+
+        it('menu element is hidden/shown when clicked', function() {
+     //       expect($('body')).toHaveClass("menu-hidden");
+        });
+
+
 
     });      
 
