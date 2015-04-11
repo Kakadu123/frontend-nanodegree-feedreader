@@ -73,7 +73,6 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-
         it('menu element is hidden by default', function() {
     //      expect($('body').hasClass("menu-hidden")).toBeTruthy();
     //      expect($('body')).toHaveClass("menu-hidden");
@@ -86,7 +85,6 @@ $(function() {
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
-
         it('menu element is hidden/shown when clicked', function() {
             $('.menu-icon-link').click();
             expect($('body').hasClass("menu-hidden")).toBe(false);
@@ -107,10 +105,15 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
-        it('At least a single .entry element when the loadFeed function is called', function() {
-        
+//     console.log("before " + $('.entry').length);
 
+        beforeEach(function(done) {
+            loadFeed(0,done);
+        });
 
+        it('At least a single .entry displayed when the loadFeed function is called', function() {
+//            console.log("after " + $('.entry').length);
+            expect($('.entry').length).toBeGreaterThan(0);
         });
 
     });
@@ -118,15 +121,35 @@ $(function() {
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {   
 
+/*
+        beforeEach(function(done) {
+            loadFeed(0,(
+
+                   function() {
+                    console.log($(".entry h2").text());
+                   } 
+
+                ));*/
+            
+
+           /*loadFeed(1,done);
+            console.log($(".entry h2").text());
+*/
+     /*   });*/
+
+  //      console.log($(".entry h2").text());    
+
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        it('Content changes when a new feed is loaded', function() {
+
+
+/*        it('Content changes when a new feed is loaded', function() {
         
             
 
-        });
+        });*/
       
     });
     
