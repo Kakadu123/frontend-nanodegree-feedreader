@@ -145,14 +145,10 @@ $(function() {
 
 		// Samuel Comment:
 		// outer HTML of newly loaded .feed element is stored in a variable
-		// to be compared with the .feed element prior to loadFeed
-		it('changes when new (other than default: Udacity Blog) feed is loaded', function(done) {
-			
+		// to be compared with the .feed element prior to loadFeed.
+		// addditional test to check if at least one .entry-link is loaded
+		it('changes when new (other than default: Udacity Blog) feed is loaded', function(done) {			
 			newOuterHTML = $('.feed')[0].outerHTML;
-
-			console.log("old: " + oldOuterHTML);
-			console.log("new: " + newOuterHTML);
-
 			expect($('.entry-link').length).toBeGreaterThan(0);
 			expect(newOuterHTML).not.toEqual(oldOuterHTML);
 			done();			
