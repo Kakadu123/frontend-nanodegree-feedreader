@@ -117,12 +117,6 @@ $(function() {
 		});
 	});
 
-	// Samuel Comment: 
-	// Default timeout changed to 15 seconds to give the tester suffient time
-	// to click on .menu-icon-link element (in the upper left corner) that toggles
-	// left menu and the tester is required to click on any of the li in the .feed-list
-	// and thus triggering loadFeed function 
-	jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
 	/* TODO: Write a new test suite named "New Feed Selection" */
 	describe('New Feed Selection', function() {
 
@@ -134,34 +128,34 @@ $(function() {
 		// Samuel Comment: 
 		// beforeEach is used as loadFeed is asynchronous function
 		// .feed element outerHTML is stored in oldOuterHTML variable
-		// before triggering loadFeed function by the tester clicking 
-		// on menu item
-		beforeEach(function(done) {
-			$('.feed-list').on('click', 'a', function() {
-				clickedElement = $(this);
-				oldOuterHTML = $('.feed')[0].outerHTML;
-				loadFeed(clickedElement.data('id'), done);
-			});
-		});
+        beforeEach(function(done) { 
+             loadFeed(0, function() { 
+                 oldOuterHTML = $('.feed')[0].outerHTML;  
+                 done(); 
+             }); 
+         });
 
-		// Samuel Comment: 
-		// outer HTML of newly loaded .feed element is stored in variable
-		// to be used for later comparison. 
-		// If the tester selects menu item other than the default one
-		// (Udacity Blog) than the .feed content should be modified.
-		// If the tester selects default menu element, 
-		// then the newly-loaded .feed content remains the same. 
-		it('Content changes when new (other than default) feed is loaded or remains the same when the default feed (Udacity Blog) is clicked', function(done) {
+        // Samuel Comment
+        // loadFeed function is triggered again with feed id
+        // randomly chosen from all feeds available in allFeeds 
+        // with the exception of feed id=0, which is the default
+        beforeEach(function(done) { 
+             loadFeed( Math.floor( (Math.random() * (allFeeds.length - 1) ) + 1), done);                   
+        });
+
+		// Samuel Comment:
+		// outer HTML of newly loaded .feed element is stored in a variable
+		// to be compared with the .feed element prior to loadFeed
+		it('changes when new (other than default: Udacity Blog) feed is loaded', function(done) {
+			
 			newOuterHTML = $('.feed')[0].outerHTML;
-			expect($('.entry-link').length).toBeGreaterThan(0);
 
-			if (clickedElement.data('id') > 0) {
-				expect(newOuterHTML).not.toEqual(oldOuterHTML);
-			} else {
-				expect(clickedElement.data('id')).toBe(0);
-				expect(newOuterHTML).toEqual(oldOuterHTML);
-			}
-			done();
+			console.log("old: " + oldOuterHTML);
+			console.log("new: " + newOuterHTML);
+
+			expect($('.entry-link').length).toBeGreaterThan(0);
+			expect(newOuterHTML).not.toEqual(oldOuterHTML);
+			done();			
 		});
 	});
 }());
