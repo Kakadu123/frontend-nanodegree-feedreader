@@ -32,9 +32,9 @@ $(function() {
 		 * and that the URL is not empty.
 		 */
 
-		// Samuel Comment: 
+		// Samuel Comment:
 		// Loop through the allFeeds object and determine whether
-		// url is defined and is not empty. 
+		// url is defined and is not empty.
 		it('have URL defined and not empty', function() {
 			for (var i = allFeeds.length - 1; i >= 0; i--) {
 				expect(allFeeds[i].url).toBeDefined();
@@ -67,7 +67,7 @@ $(function() {
 		 * hiding/showing of the menu element.
 		 */
 
-		// Samuel Comment: 
+		// Samuel Comment:
 		// Menu element is hidden/shown on the basis of "menu-hidden"
 		// class in body element, default being hidden
 		it('is hidden by default', function() {
@@ -80,11 +80,11 @@ $(function() {
 		 * clicked and does it hide when clicked again.
 		 */
 
-		// Samuel Comment: 
+		// Samuel Comment:
 		// Menu element is hidden/shown on the basis of "menu-hidden"
 		// class in the body element. First click shows the menu, which is
-		// tested by the 1st expect() and subsequently the second click hides 
-		// the menu that is tested by the second expect()          
+		// tested by the 1st expect() and subsequently the second click hides
+		// the menu that is tested by the second expect()
 		it('is hidden/shown when clicked', function() {
 			$('.menu-icon-link').click();
 			expect($('body').hasClass("menu-hidden")).toBe(false);
@@ -103,10 +103,10 @@ $(function() {
 		 * the use of Jasmine's beforeEach and asynchronous done() function.
 		 */
 
-		// Samuel Comment: 
+		// Samuel Comment:
 		// As loadFeed is asynchronous it requires the use of beforeEach.
 		// expect() is testing for the number of .entry elements that are
-		// contained in .feed container.        
+		// contained in .feed container.
 		beforeEach(function(done) {
 			loadFeed(0, done);
 		});
@@ -125,33 +125,33 @@ $(function() {
 		 * Remember, loadFeed() is asynchronous.
 		 */
 
-		// Samuel Comment: 
+		// Samuel Comment:
 		// beforeEach is used as loadFeed is asynchronous function
 		// .feed element outerHTML is stored in oldOuterHTML variable
-        beforeEach(function(done) { 
-             loadFeed(0, function() { 
-                 oldOuterHTML = $('.feed')[0].outerHTML;  
-                 done(); 
-             }); 
+        beforeEach(function(done) {
+             loadFeed(0, function() {
+                 oldOuterHTML = $('.feed')[0].outerHTML;
+                 done();
+             });
          });
 
         // Samuel Comment
         // loadFeed function is triggered again with feed id
-        // randomly chosen from all feeds available in allFeeds 
+        // randomly chosen from all feeds available in allFeeds
         // with the exception of feed id=0, which is the default
-        beforeEach(function(done) { 
-             loadFeed( Math.floor( (Math.random() * (allFeeds.length - 1) ) + 1), done);                   
+        beforeEach(function(done) {
+             loadFeed( Math.floor( (Math.random() * (allFeeds.length - 1) ) + 1), done);
         });
 
 		// Samuel Comment:
 		// outer HTML of newly loaded .feed element is stored in a variable
 		// to be compared with the .feed element prior to loadFeed.
 		// addditional test to check if at least one .entry-link is loaded
-		it('changes when new (other than default: Udacity Blog) feed is loaded', function(done) {			
+		it('changes when new (other than default: Udacity Blog) feed is loaded', function(done) {
 			newOuterHTML = $('.feed')[0].outerHTML;
 			expect($('.entry-link').length).toBeGreaterThan(0);
 			expect(newOuterHTML).not.toEqual(oldOuterHTML);
-			done();			
+			done();
 		});
 	});
 }());
